@@ -5,6 +5,10 @@ pipeline {
     tools {
         maven 'maven363'
     }
+    environment {
+        target_user = "ec2-user"
+        target_server = "172.31.37.153"
+    }
     options {
        timeout(10)
        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')
@@ -30,7 +34,7 @@ pipeline {
             steps {
                 echo "Deploying to dev environment"
                 sshagent(['maven-cd-key']) {
-                    sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar ec2-user@172.31.37.153:/home/ec2-user"
+                    sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar $target_user@$target_server:/home/ec2-user"
                 }
             }
         }

@@ -13,8 +13,17 @@ pipeline {
         }
         stage('Build'){
             steps {
-                sh "mvn --version"
                 sh "mvn clean install"
+            }
+        }
+        stage('Test'){
+            steps{
+                sh "mvn test"
+            }
+        }
+        stage('Post tasks'){
+            steps {
+                sh "echo send an email"
             }
         }
     }

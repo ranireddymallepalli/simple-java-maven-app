@@ -26,16 +26,16 @@ pipeline {
                 sh "mvn test"
             }
         }
-        post {
-            always{
-                deleteDir()
-            }
-            failure{
-                echo "sednmail -s Maven Job failed recipients@mycompany.com"
-            }
-            success{
-                echo "The job is successful"
-            }
+    }
+    post {
+         always{
+            deleteDir()
+        }
+        failure{
+            echo "sednmail -s Maven Job failed recipients@mycompany.com"
+        }
+        success{
+            echo "The job is successful"
         }
     }
 }

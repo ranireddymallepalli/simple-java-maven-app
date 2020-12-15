@@ -1,0 +1,17 @@
+//scripted pipeline
+node('agent1'){
+    stage('Checkout'){
+        git branch: 'main', credentialsId: 'ranigithubid', url: 'https://github.com/suvofficial/bash-scripts.git'
+    }
+    stage('Build'){
+        sh "sh array.sh"
+    }
+    stage('Post Task'){
+        sh "echo emailing"
+    }
+    stage('Printing environment variable'){
+        withEnv(['myVar="Outer Block"']){
+            echo "My Variable is $myVar"
+        }
+    }
+}

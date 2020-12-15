@@ -1,0 +1,37 @@
+//declarative pipeline
+pipeline{
+ // agent any
+ agent{
+     label "agent1"
+  }
+  environment{
+      myvar = "Outer Block"
+    }
+ 
+   stages {
+      stage('Checkout'){
+          steps {
+              git branch: 'main', credentialsId: 'ranigithubid', url: 'https://github.com/suvofficial/bash-scripts.git'
+            }
+        }
+      stage('Build'){
+          steps{
+             sh "sh array.sh"
+             sh "sleep 60"
+            }
+        }
+      stage('Post Tasks'){
+          steps{
+             sh "echo Emailing"
+            }
+        }
+        stage('Printing environmet var'){
+            environment{
+                myvar = "Inner Block"
+            }
+            steps{
+                sh 'echo "This is my variable: $myvar"'
+            }
+        }
+    }
+}

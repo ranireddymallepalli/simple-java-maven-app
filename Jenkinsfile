@@ -26,9 +26,15 @@ pipeline {
                 sh "mvn test"
             }
         }
-        stage('Post tasks'){
-            steps {
-                sh "echo send an email"
+        post {
+            always{
+                deleteDir()
+            }
+            failure{
+                echo "sednmail -s Maven Job failed recipients@mycompany.com"
+            }
+            success{
+                echo "The job is successful"
             }
         }
     }

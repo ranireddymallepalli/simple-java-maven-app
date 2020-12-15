@@ -26,6 +26,12 @@ pipeline {
                 sh "mvn test"
             }
         }
+        stage('Deploy'){
+            echo "Deploying to dev environment"
+            sshagent(['maven-cd-key']) {
+                 sh "scp target/my-app-1.0.SNAPSHOT-jar ece-user@172.31.37.153:/home/ec2-user"
+            }
+        }
     }
     post {
          always{

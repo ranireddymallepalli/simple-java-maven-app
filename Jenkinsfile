@@ -39,7 +39,7 @@ pipeline {
                     }
                     steps {
                         echo "Deploying to Dev Environment"
-                        sshagent([maven-cd-key]) {
+                        sshagent(['maven-cd-key']) {
                             sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar $target_user@$target_server:/home/ec2-user"
                         }
                     }
@@ -51,7 +51,7 @@ pipeline {
                     }
                     steps {
                         echo "Deploying to Dev Environemtn"
-                        sshagent([maven-cd-key]) {
+                        sshagent(['maven-cd-key']) {
                             sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar $target_user@$target_server:/home/ec2-user"
                         }
                     }
@@ -59,18 +59,6 @@ pipeline {
             }
         }
     }
-
-/*
-        stage('Deploy'){
-            steps {
-                echo "Deploying to dev environment"
-                sshagent(['maven-cd-key']) {
-                    sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar $target_user@$target_server:/home/ec2-user"
-                }
-            }
-        }
-    }
-*/
     post {
          always{
             deleteDir()
@@ -83,4 +71,14 @@ pipeline {
         }
     }
 }
-
+/*
+        stage('Deploy'){
+            steps {
+                echo "Deploying to dev environment"
+                sshagent(['maven-cd-key']) {
+                    sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar $target_user@$target_server:/home/ec2-user"
+                }
+            }
+        }
+    }
+*/

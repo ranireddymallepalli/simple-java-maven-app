@@ -58,7 +58,7 @@ pipeline {
                 }
             }
         }
-        stage)'Deploy to UAT') {
+        stage('Deploy to UAT') {
             environment {
                 target_user = "ec2-user"
                 target_server = ""
